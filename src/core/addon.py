@@ -6,9 +6,11 @@
 from ..api.bridge import Bridge
 from ..api.handler.camera import CameraApplySettingsOperator
 from ..api.scene.camera_set_scene import CameraSettingsProperties
+from ..api.scene.mmd_set import lips_audio_path, lips_start_frame
 from ..api.scene.render_preset_scene import (
     resolution_preset, aspect_ratio_preset, orientation_preset)
 from ..api.ui.camera_set_panel import CameraSetPanel
+from ..api.ui.mmd_set_panel import MMDHelperPanel, GenLipsOperator
 from ..api.ui.render_preset_panel import RenderPresetPanel
 
 
@@ -26,8 +28,10 @@ class AddonManager:
         # 4.Panel(面板)
         CameraSettingsProperties,
         CameraApplySettingsOperator,
+        GenLipsOperator,
         RenderPresetPanel,
         CameraSetPanel,
+        MMDHelperPanel,
     )
 
     @staticmethod
@@ -78,6 +82,10 @@ class AddonManager:
         # 摄像机预设相关
         scene.camera_settings = pp(type=CameraSettingsProperties)
 
+        # MMD
+        scene.lips_audio_path = lips_audio_path
+        scene.lips_start_frame = lips_start_frame
+
     @staticmethod
     def unregister_scene():
         """
@@ -95,6 +103,10 @@ class AddonManager:
             del scene.orientation_preset
         if hasattr(scene, 'camera_settings'):
             del scene.camera_settings
+        if hasattr(scene, 'lips_audio_path'):
+            del scene.lips_audio_path
+        if hasattr(scene, 'lips_start_frame'):
+            del scene.lips_start_frame
 
     @staticmethod
     def register_classes():

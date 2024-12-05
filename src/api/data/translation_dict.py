@@ -3,6 +3,8 @@
 """
 翻译相关
 """
+
+
 def get_translation_zh_dict(local):
     """
     获取翻译字典
@@ -23,6 +25,8 @@ def get_translation_zh_dict(local):
 
 
 translation_zh_map = {
+    ("*", "MMD Lip Gen"): "MMD口型生成",
+    ("*", "Audio Path"): "音频文件",
     ("*", "Bilibili cover image"): "B站封面",
     ("*", "382:239 Bilibili cover image"): "382:239 B站封面",
     ("*", "Other"): "其它",
@@ -67,5 +71,7 @@ translation_zh_map = {
     ("*", "Slightly Blurred. Suitable for average lighting conditions"): "轻微虚化，适合一般光照条件",
     ("*", "Whisky Helper"): "Whisky助手",
     ("*", "default"): "默认",
+    ("*", "Start Frame"): "起始帧",
     ("Operator", "apply camera settings"): "应用相机设置",
+    ("Operator", "Gen Lips"): "口型生成",
 }
