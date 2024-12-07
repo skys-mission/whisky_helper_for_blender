@@ -38,7 +38,9 @@ def convert_to_wav_16000(audio_path):
     # Check if the ffmpeg executable exists
     if not os.path.isfile(ffmpeg_path):
         raise FileNotFoundError(
-            f"'ffmpeg' executable not found: {ffmpeg_path}. Please ensure the file exists and is executable.")
+            f"'ffmpeg' executable not found: {ffmpeg_path}. "
+            f"Please ensure the file exists and is executable."
+        )
 
     # Construct the ffmpeg command
     command = [
@@ -61,11 +63,12 @@ def convert_to_wav_16000(audio_path):
     # Return the generated file path
     return output_path
 
+
 # 示例用法
-# if __name__ == "__main__":
-#     input_audio_path = "2024-12-04 03-18-58.mp4"  # 替换为你的音频文件路径
-#     try:
-#         output = convert_to_wav_16000(input_audio_path)
-#         print(f"转换成功！输出文件路径: {output}")
-#     except Exception as e:
-#         print(f"转换失败: {e}")
+if __name__ == "__main__":
+    input_audio_path = "F:\OBS_Video\\test.wav"  # 替换为你的音频文件路径
+    try:
+        output = convert_to_wav_16000(input_audio_path)
+        print(f"转换成功！输出文件路径: {output}")
+    except Exception as e:
+        print(f"转换失败: {e}")

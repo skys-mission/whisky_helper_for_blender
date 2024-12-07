@@ -58,4 +58,4 @@ def run_vosk(audio_path):
     print(f"Output saved to: {output_path}")
 
 # 示例使用
-run_vosk("F:\OBS_Video\\2024-12-04 03-18-58_whiskyai_xyz_16000.wav")
+run_vosk("F:\OBS_Video\\test_whiskyai_xyz_16000.wav")
