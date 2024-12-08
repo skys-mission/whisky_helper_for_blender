@@ -1,5 +1,9 @@
-import re
+import json
+import os
 from typing import List, Tuple, Dict
+
+from src.audio.ffmpeg import convert_to_wav_16000
+from src.audio.vosk import run_vosk
 
 
 def load_cmu_dict(file_path: str) -> Dict[str, List[str]]:
@@ -40,7 +44,7 @@ def align_phonemes_to_timestamps(word_data: Dict, cmu_dict: Dict[str, List[str]]
         if word in cmu_dict:
             phonemes = cmu_dict[word]
         else:
-            phonemes = ["UNKNOWN"]  # 如果单词不在字典中，标记为 UNKNOWN
+            phonemes = ["AA"]  # 如果单词不在字典中，标记为 AA TODO
 
         # 平均分配时间戳给每个音素
         num_phonemes = len(phonemes)
@@ -66,41 +70,21 @@ def process_data(input_data: List[Dict], cmu_dict: Dict[str, List[str]]) -> List
     return all_aligned_data
 
 
+cmu_dict_path = "F:\\OBS_Video\\cmudict-0.7b"  # 替换为实际的 CMU 字典文件路径
+
+# 加载 CMU 字典
+cmu_dict = load_cmu_dict(cmu_dict_path)
+
+
 # 示例使用
-if __name__ == "__main__":
-    # 设置 CMU 字典路径
-    cmu_dict_path = "F:\\OBS_Video\\cmudict-0.7b"  # 替换为实际的 CMU 字典文件路径
-
-    # 加载 CMU 字典
-    cmu_dict = load_cmu_dict(cmu_dict_path)
-
-    # 示例数据
-    input_data = [
-        {
-            "result": [
-                {"conf": 1, "start": 0.84, "end": 1.11, "word": "one"},
-                {"conf": 1, "start": 1.11, "end": 1.53, "word": "zero"},
-                {"conf": 1, "start": 1.53, "end": 1.95, "word": "zero"},
-                {"conf": 1, "start": 1.95, "end": 2.31, "word": "zero"},
-                {"conf": 1, "start": 2.31, "end": 2.61, "word": "one"},
-            ],
-            "text": "one zero zero zero one",
-        },
-        {
-            "result": [
-                {"conf": 0.509024, "start": 3.93, "end": 4.11, "word": "nah"},
-                {"conf": 0.620121, "start": 4.11, "end": 4.29, "word": "no"},
-                {"conf": 0.761823, "start": 4.29, "end": 4.56, "word": "to"},
-                {"conf": 0.446183, "start": 4.56, "end": 4.62, "word": "i"},
-                {"conf": 0.762531, "start": 4.62, "end": 4.98, "word": "know"},
-            ],
-            "text": "nah no to i know",
-        },
-    ]
+def phoneme_gen(json_path):
+    with open(json_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)  # 使用 json.load() 解析 JSON 文件内容
 
     # 处理数据
-    aligned_phonemes = process_data(input_data, cmu_dict)
+    aligned_phonemes = process_data(data, cmu_dict)
 
-    # 输出结果
-    for start, end, phoneme in aligned_phonemes:
-        print(f"{start:.2f} - {end:.2f}: {phoneme}")
+    return aligned_phonemes
+    # # 输出结果
+    # for start, end, phoneme in aligned_phonemes:
+    #     print(f"{start:.2f} - {end:.2f}: {phoneme}")
