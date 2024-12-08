@@ -135,7 +135,7 @@ def lips_gen(phoneme_data):
     return mmd_keyframes
 
 
-
+#
 wav_path = convert_to_wav_16000("F:\\OBS_Video\\test.wav")
 
 json_path = run_vosk(wav_path)
