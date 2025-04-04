@@ -26,7 +26,7 @@ def convert_to_wav_16000(audio_path):
 
     # Retrieve file name and target file path
     base_name = os.path.splitext(os.path.basename(audio_path))[0]
-    output_path = f"{os.path.join(os.path.dirname(audio_path), base_name)}_whiskyai_xyz_16000.wav"
+    output_path = f"{os.path.join(os.path.dirname(audio_path), base_name)}_soywhisky.com.wav"
 
     # Get the current script directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
