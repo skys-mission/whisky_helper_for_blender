@@ -82,10 +82,10 @@ class GenLipsOperator(bpy.types.Operator):  # pylint: disable=too-few-public-met
 
         # 将鼠标指针调整为进度指示器
         context.window.cursor_modal_set('WAIT')
-        context.window_manager.progress_update(99)
+        context.window_manager.progress_update(97)
         try:
             lips = Lips.mmd_lips_gen(
-                context.scene.lips_audio_path,
+                wav_path=context.scene.lips_audio_path,
                 buffer=context.scene.buffer_frame,
                 approach_speed=context.scene.approach_speed,
                 db_threshold=context.scene.db_threshold,
@@ -93,7 +93,9 @@ class GenLipsOperator(bpy.types.Operator):  # pylint: disable=too-few-public-met
                 max_morph_value=context.scene.max_morph_value,
                 start_frame=context.scene.lips_start_frame,
                 fps=fps)
+            context.window_manager.progress_update(98)
             meshes = find_mesh()
+            context.window_manager.progress_update(99)
             for mesh in meshes:
                 set_lips_to_mesh(mesh, lips, context.scene.lips_start_frame)
 
